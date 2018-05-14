@@ -1,7 +1,7 @@
-CREATE DATABASE db_library
+CREATE DATABASE db_library1
 GO
 
-USE db_library
+USE db_library1
 GO
 
 /* the book table */
@@ -110,15 +110,6 @@ VALUES
 ('Doubleday', '490 Mountain Pass', '555-124-5790')
 ;
 
-
-SELECT DISTINCT
-	a1.book_id, a1.book_title, a2.author_name, a3.publisher_name
-	FROM tbl_book a1
-	INNER JOIN tbl_author a2 ON a2.book_id = a1.book_id
-	INNER JOIN tbl_publisher a3 ON a3.publisher_name = a1.book_publisherName
-	ORDER BY a1.book_id
-	;
-
 /*the branch table */
 CREATE TABLE tbl_library_branch(
 	branch_id INT PRIMARY KEY NOT NULL IDENTITY (200,1),
@@ -135,8 +126,6 @@ INSERT INTO tbl_library_branch
 	('Wallingford', '509 30th Avenue'),
 	('South', '73303 Denver Road')
 ;
-
-SELECT * FROM tbl_library_branch
 
 /*the book copies table */
 CREATE TABLE tbl_book_copies(
@@ -305,22 +294,3 @@ INSERT INTO tbl_book_loans
 	('16', '204', '5010', '2018/05/11'),
 	('20', '204', '5010', '2018/05/11')
 ;
-
-
-SELECT 
-	a1.book_title, a1.book_id, a2.branch_name, a2.branch_id
-	FROM tbl_book a1
-	INNER JOIN tbl_library_branch a2 ON a2.branch_id = a2.branch_id
-;
-
-/* next step is to make 2 borrowers for each library */
-
-/* my select queries*/
-SELECT
-	a1.book_title, a2.no_of_copies, a3.branch_name
-	FROM tbl_book a1
-	INNER JOIN tbl_book_copies a2 ON a2.book_id = a1.book_id
-	INNER JOIN tbl_library_branch a3 ON a3.branch_id = a2.branch_id
-	WHERE branch_name = 'Sharpstown'
-;
-
